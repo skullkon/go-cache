@@ -26,20 +26,20 @@ func New() *MutexStorage {
 }
 
 func (s *MutexStorage) Set(key, value string) {
-	s.mu.RLock()
-	defer s.mu.RUnlock()
+	s.mu.Lock()
+	defer s.mu.Unlock()
 	s.m[key] = value
 }
 
 func (s *MutexStorage) Get(key string) (string, bool) {
-	s.mu.RLock()
-	defer s.mu.RUnlock()
+	s.mu.Lock()
+	defer s.mu.Unlock()
 	value, ok := s.m[key]
 	return value, ok
 }
 
 func (s *MutexStorage) Delete(key string) {
-	s.mu.RLock()
-	defer s.mu.RUnlock()
+	s.mu.Lock()
+	defer s.mu.Unlock()
 	delete(s.m, key)
 }
